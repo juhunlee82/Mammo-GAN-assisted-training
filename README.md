@@ -21,32 +21,20 @@ This repository offer the weights of Lesion Simulator (LS) and Lesion Remover(LR
 First download original Cycle-GAN repository available at:
 [Cycle-GAN](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
 
-Download our weights. You are in fact downloading generator weights for the original Cycle-GAN that were fine-tuned on the development portion (80%) of 10,414 mammography patch dataset from 4,789 unique patients (2,416 women with recalled lesions and 2,312 healthy women). 
+Download our weights available at: 
+You are in fact downloading generator weights for the original Cycle-GAN that were fine-tuned on the development portion (80%) of 10,414 mammography patch dataset from 4,789 unique patients (2,416 women with recalled lesions and 2,312 healthy women). 
 
-We adopted the original [Cycle-GAN](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) and fine-tuned it to develop our Lesion Simulator (LS) and Lesion Remover(LR)
+There are two folders, /lesion_cycle_ganA/ and /lesion_cycle_ganB/, where the first is Lesion remover and the second one is Lesion simulator.
+Each folder has weight for generator of Cycle-GAN, at epoch 25, 50, 75, and 100.
 
-What this repository offer are the weights of LS and LR at different epoch
+Save the above folders under \checkpoints\, if you don't have this folder, create one under the original Cycle-GAN repository.
 
-Using the lesion locations marked by MQSA radiologists, we segmented the patches to a size of 400 by 400 pixels (2.8 cm by 2.8 cm in size), including the recalled lesions for the cases. For normal controls, we segmented the same 400 by 400 pixel patch from the centroid of the breast area.
+You can apply the Lesion Simulator and Remover using the test.py from the original Cycle-GAN repository:
 
-<p align="center">
-<img src="https://github.com/user-attachments/assets/541b77fe-8319-4c47-8c29-9aae587a59c4" width="50%" \>
-</p>
+Lesion Remover:
 
-Our LS and LR are the generators of Cycle-GAN, which can insert lesion in the normal patch (LS) and remove lesion from the lesion patch (LR). 
-We optimized the Cycle-GAN using an Adam optimizer with a learning rate of 0.0002, and momentum parameters of β1=0.5, β2=0.999. In addition, we set the maximum epoch as 100 and saved the model at every 5 eporch, and the weights for L1 regularization, λ1 and λ2, as 10 and 0.5, and a minibatch size of 4. We used a random left-right vertical flip as data augmentation.
-Below figure shows how LS and LR work for the course of training. We prepared the LS and LR weights for epoch 5, 10, 15, ..., 100 to this repository.
+python test.py --dataroot [your datafolder] --name lesion_cycle_ganA --model test --no_dropout --num_test 5000 --preprocess none  --results_dir [your result folder]
 
+Lesion Simulator:
 
-
-
-
-<p align="center">
-<img src="https://github.com/user-attachments/assets/fd61016e-9c8b-4e0b-a468-e07e7286a500" width="50%" \>
-</p>
-
-## Creating challenging cases for improving the detection performance 
-Our hypothesis is that LS and LR modified samples could be served as difficult or challenging samples for the lesion detection algorithm, such that they can ultimately improve the lesion detection performance once the algorithm trained on such modified cases. In addition, we assumed that LS and LR in intermediate training steps can provide better challenging cases than those from the final training steps.  
-Once the detection algorithm is optimized on the training set, the lesion score distribution by the algorithm can be ranged from 0 (normal) to 1 (recalled lesion) as shown in Figure 1.A. Let Th be the positive threshold value to determine the easy cases; the normal patches with the score lower than +Th (distribution in blue, or a in Figure 1.A) and lesion patches with the score higher than 1 – Th (distribution in orange, or c in Figure 1.A) are easy samples for the detection algorithm. Any cases within +Th and 1 – Th (distribution in green or b in Figure 1.A) are difficult or challenging cases for the algorithm. Easy normal cases are then passed through the LS to increase the difficulty of those cases. Likewise, we increased the difficulty level of easy lesions by feeding them into LR. We then replaced such transformed cases back with the original easy cases (Figure 1.B). As a result, the number of challenging or difficult cases can be increased for retraining the given algorithm (Figure 1.C).  
-
-To use LS and LR for improving lesion detection algorithms, one needs to decide how many easy samples should be changed and which epoch of LS and LR should be used. To do so, we considered the following Th levels of [0.05, 0.1, 0.25, 0.5, 0.75, 1] and for Cycle-GAN epochs, we evaluated the cases of 25, 50, 75, and 100 epochs.  
+python test.py --dataroot [your datafolder] --name lesion_cycle_ganB --model test --no_dropout --num_test 5000 --preprocess none  --results_dir [your result folder]
