@@ -34,9 +34,10 @@ Save the above folders under \checkpoints\, if you don't have this folder, creat
 You can apply the Lesion Simulator and Remover using the test.py from the original Cycle-GAN repository:
 
 Lesion Remover:
-
+```python
 python test.py --dataroot [your datafolder] --name lesion_cycle_ganA --model test --no_dropout --num_test 5000 --preprocess none  --results_dir [your result folder]
-
+```
 Lesion Simulator:
-
+```python
 python test.py --dataroot [your datafolder] --name lesion_cycle_ganB --model test --no_dropout --num_test 5000 --preprocess none  --results_dir [your result folder]
+```
