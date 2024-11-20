@@ -23,7 +23,8 @@ This repository offer the weights of Lesion Simulator (LS) and Lesion Remover(LR
 First download original Cycle-GAN repository available at:
 [Cycle-GAN](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
 
-Download our weights available at: 
+Download our weights available at: [GAN-weights](https://drive.google.com/file/d/18c4AKCZmC6w5VfT5_LRvox3XPbsW3q8y/view?usp=drive_link)
+
 You are in fact downloading generator weights for the original Cycle-GAN that were fine-tuned on the development portion (80%) of 10,414 mammography patch dataset from 4,789 unique patients (2,416 women with recalled lesions and 2,312 healthy women). 
 
 There are two folders, /lesion_cycle_ganA/ and /lesion_cycle_ganB/, where the first is Lesion remover and the second one is Lesion simulator.
