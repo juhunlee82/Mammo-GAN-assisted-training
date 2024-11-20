@@ -1,5 +1,5 @@
 %% LS LR assisted training
-
+% run Baseline_training.m first
 % load baseline
 load resnet18_baseline_LR_LS.mat
 
