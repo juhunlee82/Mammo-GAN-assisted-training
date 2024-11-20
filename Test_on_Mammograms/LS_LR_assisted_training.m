@@ -42,14 +42,15 @@ Thlist = [0.05, 0.1, 0.25, 0.5 0.75 1];
 list = {'25','50','75','latest'};
 
 for j = 1:6
-    Th = Thlist(j);
-    indC = (probs(:,2)<Th)&(TrainData.Labels=="Lesion");
-    indN = (probs(:,2)>(1-Th))&(TrainData.Labels=="Normal");
+    Th = Thlist(j); 
+    % finding easy cases, for lesion, scores higher than Th are easy, for normal, scores lower than (1-Th) are easy
+    indC = (probs(:,2)>Th)&(TrainData.Labels=="Lesion");
+    indN = (probs(:,2)<(1-Th))&(TrainData.Labels=="Normal");
 
     for i = 1:4
+    % the following paths include LS LR converted cases for the development set. 'fake' indicates they are LS LR converted.
         cpathTr = ['\Lesion\lesion_cycle_gan\test_',list{i},'\images\*fake.png'];
         npathTr = ['\Normal\lesion_cycle_gan\test_',list{i},'\images\*fake.png'];
-
 
         cTr = imageDatastore(cpathTr,'LabelSource','foldernames');
         cTr.Labels = repmat(categorical("Lesion"),[length(cTr.Labels),1]);
@@ -64,8 +65,9 @@ for j = 1:6
         [TrainData2,ValData2] = splitEachLabel(TrainData2,0.8,0.2);
 
         % replace easy samples with LS LR converted ones
-        TrainPt3 = cat(1,TrainData2.Files(indC|indN),TrainData.Files);
-        TrainLb3 = cat(1,TrainData2.Labels(indC|indN),TrainData.Labels);
+        % TrainData2 include LS LR converted of TrainData
+        TrainPt3 = cat(1,TrainData2.Files(indC|indN),TrainData.Files(~(indC|indN)));
+        TrainLb3 = cat(1,TrainData2.Labels(indC|indN),TrainData.Labels(~(indC|indN)));
 
         TrainData3 = imageDatastore(TrainPt3,"Labels",TrainLb3);
 
