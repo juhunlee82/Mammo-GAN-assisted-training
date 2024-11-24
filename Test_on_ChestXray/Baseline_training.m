@@ -11,7 +11,7 @@ TrainPt = cat(1,nTr.Files,cTr.Files);
 TrainLb = cat(1,nTr.Labels,cTr.Labels);
 
 TrainData = imageDatastore(TrainPt,"Labels",TrainLb);
-% divide dataset into 7:1:2 Note there is no random split.
+% divide dataset into 7:1:2 
 [TrainData,ValData,TestData] = splitEachLabel(TrainData,0.7,0.1,0.2);
 
 augmenter = imageDataAugmenter( ...
