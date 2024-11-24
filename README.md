@@ -42,3 +42,19 @@ Lesion Simulator:
 ```python
 python test.py --dataroot [your datafolder] --name lesion_cycle_ganB --model test --no_dropout --num_test 5000 --preprocess none  --results_dir [your result folder]
 ```
+## Test Lesion simulator and Lesion remover assisted training for mammograms and chest X-ray images
+Mammogram patch dataset
+First train baseline model:
+Run /Test_on_Mammograms/Baseline_training.m
+
+After having the Lesion simulator and Lesion Remover processed patches ready, 
+Run /Test_on_Mammograms/LS_LR_assisted_training.m
+
+Note that this code goes over various Threshold values to find the target training samples to be converted by the lesion remover and lesion simulator, and different epoch levels for lesion simulator and lesion remover should be operated. Please prepare the converted samples for different LS - LR epochs accessible for the code.   
+
+chest X-ray patch dataset
+First train baseline model:
+Run /Test_on_ChestXray/Baseline_training.m
+
+After having the Lesion simulator and Lesion Remover processed patches ready, 
+Run /Test_on_ChestXray/LS_LR_assisted_training.m
