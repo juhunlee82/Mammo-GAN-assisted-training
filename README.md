@@ -8,7 +8,7 @@ The figure below illustrates our key idea, increasing difficult samples by using
 In fact, we can control the degree of occultness by undertraining LS and LR. Note that typical training of deep networks involve a few hundreds of epochs for training from scratch, and 10 – 100 for fine-tuning the networks. Some intermediate epochs, for examples 25, 50 or 75 epoches, can provide less occult lesions that could be served as key lesion cases to improve the performance of algorithms. Same scenarios can apply to normal cases.
 
 <p align="center">
-<img src="https://github.com/user-attachments/assets/2c6f242b-0ac6-499c-8245-f85a3c0834d5" width="80%" \>
+<img src="https://github.com/user-attachments/assets/b274cc94-382e-4155-9a5b-8e5a41883a59" width="80%" \>
   <figcaption> Figure 1. Core-idea of our Mammo-GAN assisted training method</figcaption>
 </p>
 
@@ -45,16 +45,21 @@ python test.py --dataroot [your datafolder] --name lesion_cycle_ganB --model tes
 ## Test Lesion simulator and Lesion remover assisted training for mammograms and chest X-ray images
 Mammogram patch dataset
 First train baseline model:
-Run /Test_on_Mammograms/Baseline_training.m
-
+```matlab
+/Test_on_Mammograms/Baseline_training.m
+```
 After having the Lesion simulator and Lesion Remover processed patches ready, 
-Run /Test_on_Mammograms/LS_LR_assisted_training.m
-
+```matlab
+/Test_on_Mammograms/LS_LR_assisted_training.m
+```
 Note that this code goes over various Threshold values to find the target training samples to be converted by the lesion remover and lesion simulator, and different epoch levels for lesion simulator and lesion remover should be operated. Please prepare the converted samples for different LS - LR epochs accessible for the code.   
 
 chest X-ray patch dataset
 First train baseline model:
-Run /Test_on_ChestXray/Baseline_training.m
-
+```matlab
+/Test_on_ChestXray/Baseline_training.m
+```
 After having the Lesion simulator and Lesion Remover processed patches ready, 
-Run /Test_on_ChestXray/LS_LR_assisted_training.m
+```matlab
+/Test_on_ChestXray/LS_LR_assisted_training.m
+```
