@@ -8,7 +8,7 @@ The figure below illustrates our key idea, increasing difficult samples by using
 In fact, we can control the degree of occultness by undertraining LS and LR. Note that typical training of deep networks involve a few hundreds of epochs for training from scratch, and 10 – 100 for fine-tuning the networks. Some intermediate epochs, for examples 25, 50 or 75 epoches, can provide less occult lesions that could be served as key lesion cases to improve the performance of algorithms. Same scenarios can apply to normal cases.
 
 <p align="center">
-<img src="https://github.com/user-attachments/assets/2c6f242b-0ac6-499c-8245-f85a3c0834d5" width="60%" \>
+<img src="https://github.com/user-attachments/assets/2c6f242b-0ac6-499c-8245-f85a3c0834d5" width="80%" \>
   <figcaption> Figure 1. Core-idea of our Mammo-GAN assisted training method</figcaption>
 </p>
 
