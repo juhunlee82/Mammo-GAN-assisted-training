@@ -43,7 +43,7 @@ list = {'25','50','75','latest'};
 
 for j = 1:6
     Th = Thlist(j); 
-    % finding easy cases, for lesion, scores higher than Th are easy, for normal, scores lower than (1-Th) are easy
+    % finding target training cases for LS - LR process to increase its difficult level. 
     indC = (probs(:,2)>Th)&(TrainData.Labels=="Lesion");
     indN = (probs(:,2)<(1-Th))&(TrainData.Labels=="Normal");
 
